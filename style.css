@@ -1,0 +1,249 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    color: #FFD700;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    max-width: 560px;
+    margin: 0 auto 20px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.score, .lives {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(20, 28px);
+    grid-gap: 0;
+    background-color: #000;
+    border: 5px solid #00f;
+    margin: 0 auto;
+    width: fit-content;
+    padding: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);
+}
+
+.cell {
+    width: 28px;
+    height: 28px;
+    position: relative;
+}
+
+.wall {
+    background-color: #00f;
+    border: 1px solid #0055ff;
+}
+
+.path {
+    background-color: #000;
+}
+
+.dot {
+    background-color: #000;
+    position: relative;
+}
+
+.dot::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #FFB897;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.power-pellet {
+    background-color: #000;
+    position: relative;
+}
+
+.power-pellet::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    to { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.pacman {
+    position: relative;
+}
+
+.pacman::after {
+    content: '';
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-color: #FFFF00;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    clip-path: polygon(100% 50%, 50% 0, 0 0, 0 100%, 50% 100%);
+    animation: chomp 0.3s infinite;
+}
+
+.pacman.right::after {
+    clip-path: polygon(100% 50%, 50% 0, 0 0, 0 100%, 50% 100%);
+}
+
+.pacman.left::after {
+    clip-path: polygon(0% 50%, 50% 0, 100% 0, 100% 100%, 50% 100%);
+}
+
+.pacman.up::after {
+    clip-path: polygon(50% 0%, 0 50%, 0 100%, 100% 100%, 100% 50%);
+}
+
+.pacman.down::after {
+    clip-path: polygon(50% 100%, 0 50%, 0 0, 100% 0, 100% 50%);
+}
+
+@keyframes chomp {
+    0%, 100% { clip-path: polygon(100% 50%, 50% 0, 0 0, 0 100%, 50% 100%); }
+    50% { clip-path: polygon(100% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%); }
+}
+
+.ghost {
+    position: relative;
+}
+
+.ghost::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50% 50% 0 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ghost.blinky::after {
+    background-color: #FF0000;
+}
+
+.ghost.pinky::after {
+    background-color: #FFB8FF;
+}
+
+.ghost.inky::after {
+    background-color: #00FFFF;
+}
+
+.ghost.clyde::after {
+    background-color: #FFB852;
+}
+
+.ghost.scared::after {
+    background-color: #0000FF;
+    animation: flash 0.3s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { background-color: #0000FF; }
+    50% { background-color: #FFFFFF; }
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+.controls p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+button {
+    background-color: #FFD700;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: #FFA500;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.game-over {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    border: 3px solid #FFD700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    z-index: 1000;
+}
+
+.game-over h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #FF0000;
+}
+
+.game-over p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}

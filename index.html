@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>PAC-MAN</h1>
+        <div class="game-info">
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="lives">Vidas: <span id="lives">3</span></div>
+        </div>
+        <div id="game-board"></div>
+        <div class="controls">
+            <p>Use as setas do teclado para mover o Pac-Man</p>
+            <button id="start-button">Iniciar Jogo</button>
+        </div>
+        <div id="game-over" class="game-over hidden">
+            <h2>Game Over!</h2>
+            <p>Pontuação Final: <span id="final-score">0</span></p>
+            <button id="restart-button">Jogar Novamente</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
